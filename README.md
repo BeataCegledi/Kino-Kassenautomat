@@ -1,126 +1,40 @@
-# Projektaufgabe: „Kassenautomat im Kino“
+# 🎬 Kino-Kassenautomat
 
-Du programmierst einen kleinen Kassenautomaten, der Tickets verkauft. Der Nutzer
-kann mehrere Bestellungen hintereinander machen, bis er beendet. Es gibt Rabatte,
-Altersregeln, Fehlerbehandlung und eine formatierte Rechnung.
+Konsolenprogramm zur Ticketverwaltung in einem Kino – entwickelt im Rahmen der Berufsschulausbildung zur Fachinformatikerin.
 
----
+## Funktionsumfang
 
-## 1) Eingaben (Input)
+Der Nutzer kann interaktiv Tickets kaufen. Das Programm berechnet automatisch Rabatte, Snackkosten und Kartengebühren und gibt eine formatierte Quittung aus. Am Ende erscheint eine Tageszusammenfassung.
 
-Der Automat fragt den Nutzer in einer Schleife nach:
+### Eingaben
+- Name und Alter (mit Validierung)
+- Filmtyp: 2D (9,50 €) oder 3D (12,00 €)
+- Ticketanzahl (max. verfügbare Plätze)
+- Snack (ja/nein) – 4,20 € pro Ticket
+- Zahlungsart: Bar oder Karte (+1,5% Gebühr)
 
-- Name (String)
-- Alter (Ganzzahl)
-- Filmtyp (2D oder 3D)
-- Anzahl Tickets (Ganzzahl)
-- Snack (ja/nein)
-- Zahlungsmethode (karte oder bar)
+### Preisregeln
+| Regel | Bedingung | Auswirkung |
+|---|---|---|
+| Alterscheck | Alter < 6 | Bestellung abgelehnt |
+| Seniorenrabatt | Alter ≥ 65 | -10% |
+| Mengenrabatt | > 5 Tickets | -5% |
+| Mengenrabatt | > 10 Tickets | -10% |
+| Kartengebühr | Zahlung per Karte | +1,5% |
 
-Am Ende jeder Bestellung: **weitere Bestellung? (ja/nein)**
+## Verwendete Python-Konzepte
+- `while`-Schleife (Hauptschleife + Eingabevalidierung)
+- `for`-Schleife (Ticket-Ausgabe)
+- `try` / `except` (Fehlerbehandlung bei Eingaben)
+- `raise ValueError` (Fehler erzeugen)
+- Geschachtelte Verzweigung (`if` / `elif` / `else`)
+- Logische Operatoren (`and`, `or`, `not`)
+- f-Strings (formatierte Ausgabe)
 
----
+## Ausführen
 
-## 2) Regeln & Rechnen
+```bash
+python Kino.py
+```
 
-### Ticketpreise
-- **2D:** 9.50 €
-- **3D:** 12.00 €
-
-### Altersregel
-- Alter < 0 oder > 120 → `ValueError("Unrealistisches Alter!")`
-- Alter < 6 → Bestellung ablehnen („Zu jung“)
-- Alter ≥ 65 → **Senior-Rabatt 10%**
-
-### Mengenrabatt
-- Tickets ≥ 5 → **5% Rabatt**
-- Tickets ≥ 10 → **10% Rabatt**
-- *(Nur ein Rabatt darf gelten!)*
-
-### Snackpreis
-- Snack „ja“ → **4.20 € pro Ticket**
-- Snack „nein“ → 0 €
-
-### Kartengebühr
-- Zahlung „karte“ → **+1.5% Gebühr**
-- Zahlung „bar“ → keine Gebühr
-
----
-
-## 3) Vorgaben zu Kontrollstrukturen
-
-### A) while-Schleife
-Der Automat läuft, bis der Nutzer „nein“ bei „weitere Bestellung?“ eingibt.
-
-### B) Fehler abfangen
-Numerische Eingaben müssen geschützt werden:
-- Bei Eingabe wie „abc“ → Fehlermeldung → erneut fragen.
-
-### C) Fehler erzeugen
-- Alter < 0 oder > 120 → `raise ValueError("Unrealistisches Alter!")`
-- Ticketanzahl ≤ 0 → `raise ValueError("Ticketanzahl muss > 0 sein!")`
-
-### D) for-Schleife
-Nach jeder Bestellung:
-Ticket 1/3: 3D - Reihe A (Reihe kann statisch oder dynamisch sein. Bei mir jede Bestellung andere Reiche)
-
-### E) Geschachtelte Verzweigung
-Beispiel:
-- Wenn Filmtyp 3D **und** Alter < 12 → „3D nur mit Begleitung empfohlen“
-- Wenn zusätzlich Snack „ja“ → „Snack wird vorbereitet“
-
-### F) Logische Operatoren
-Mindestens einmal sinnvoll nutzen:
-- `and`
-- `or`
-- `not`
-
----
-
-## 4) Ausgabe Rechnung
-
-Die Rechnung enthält:
-
-- Name, Alter, Filmtyp
-- Tickets, Einzelpreis, Zwischensumme
-- Rabatte (Senior / Menge)
-- Snack-Kosten
-- Kartengebühr (falls Karte)
-- Endsumme
-
-**Formatierung:**
-- Geldwerte mit **2 Nachkommastellen**
-- Ausrichtung per f-Strings
-
-### Beispiel:
-Kino-Kasse - Rechnung
-Kunde: Mia (Alter: 17)
-Film: 3D
-Position                     Betrag Tickets (3 x 12.00€)         36.00€ Snack (3 x 4.20€)            12.60€ Kartengebühr (1.5%)           0.73€
-Zu zahlen:                   49.33€
-
----
-
-## 5) Tageszusammenfassung
-
-Am Ende des Programms:
-
-- Anzahl aller Bestellungen
-- Summe aller verkauften Tickets
-- Gesamteinnahmen (formatiert)
-
----
-
-## Muss-Checkliste
-
-☒ Eingabe / Ausgabe  
-☒ Rechnen  
-☒ String-Verkettung  
-☒ Vergleichsoperatoren  
-☒ Einfache + mehrfache + geschachtelte Verzweigung  
-☒ Logische Operatoren  
-☒ for-Schleife  
-☒ while-Schleife  
-☒ Formatierte Ausgaben (f-Strings)  
-☒ Fehler abfangen (try/except)  
-☒ Fehler erzeugen (raise)
+> Voraussetzungen: Python 3.x, keine externen Bibliotheken
